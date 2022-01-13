@@ -4,7 +4,7 @@
 
 ant.property(file: '../easyb-version.properties')
 
-ivySettingsFile = "../ivysettings.xml"
+ivySettingsFile = "./ivysettings.xml"
 
 includeTargets << new File("default_tasks.gant")
 

@@ -1,10 +1,10 @@
 package org.easyb.plugin
 
-import sun.misc.Service;
+import java.util.ServiceLoader;
 
 class PluginLocator {
   EasybPlugin findPluginWithName(String pluginName) {
-    for (EasybPlugin plugin: Service.providers(EasybPlugin)) {
+    for (EasybPlugin plugin: ServiceLoader.load(EasybPlugin)) {
       if (plugin.name.equals(pluginName)) {
         return plugin
       }
@@ -15,11 +15,11 @@ class PluginLocator {
   public static def findAllExampleDataParsers() {
     def dps = []
 
-    Service.providers(ExampleDataParser).each { parser ->
+    ServiceLoader.load(ExampleDataParser).each { parser ->
       dps.add(parser)
     }
 
-//    dps.addAll( Service.providers(ExampleDataParser) )
+//    dps.addAll( ServiceLoader.load(ExampleDataParser) )
     dps.add(new ExampleAsMapDataParser())
     dps.add(new ExampleAsClosureDataParser())
 
@@ -29,7 +29,7 @@ class PluginLocator {
   public static def findAllAutoloadingSyntaxExtensions() {
     def sas = []
 
-    Service.providers(SyntaxExtension).each { SyntaxExtension parser ->
+    ServiceLoader.load(SyntaxExtension).each { SyntaxExtension parser ->
       if ( parser.autoLoad() )
         sas.add(parser)
     }
@@ -39,7 +39,7 @@ class PluginLocator {
 
   public static def findSyntaxExtensionByName(String name) {
 
-    for( SyntaxExtension parser : Service.providers(SyntaxExtension) ) {
+    for( SyntaxExtension parser : ServiceLoader.load(SyntaxExtension) ) {
       if ( parser.getName().equalsIgnoreCase(name) )
         return parser
     }

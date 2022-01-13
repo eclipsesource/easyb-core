@@ -204,7 +204,7 @@ target(init: "init dirs") {
 
 genericgroovyc = {sourcedirs, destination ->
     ant.groovyc(destdir: destination) {
-        javac(source: "1.5", target: "1.5", debug: "on")
+        javac(source: "11", target: "11", debug: "on")
         src() {
             sourcedirs.each() {
                 dirset(dir: it)
